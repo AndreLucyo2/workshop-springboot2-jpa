@@ -2,10 +2,18 @@ package com.homeAls.course.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 //Serializar os dados para transport web
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)//definir como autoencremento
 	private Long id;
 	private String name;
 	private String email;
