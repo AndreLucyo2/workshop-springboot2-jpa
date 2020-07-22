@@ -1,13 +1,20 @@
 package com.homeAls.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
 
 @Entity
+@Table(name = "tb_user")
 //Serializar os dados para transport web
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -19,6 +26,10 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String password;
+	
+	//Associação de um para muitos no banco com coluna FK com nome definido
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
 	
 	//obrigado por o contrutor vazio
 	public User() {
