@@ -10,15 +10,18 @@ import org.springframework.context.annotation.Profile;
 
 import com.homeAls.course.entities.Category;
 import com.homeAls.course.entities.Order;
+import com.homeAls.course.entities.Product;
 import com.homeAls.course.entities.User;
 import com.homeAls.course.entities.enums.OrderStatus;
 import com.homeAls.course.repositories.CategoryRepository;
 import com.homeAls.course.repositories.OrderRepository;
+import com.homeAls.course.repositories.ProductRepository;
 import com.homeAls.course.repositories.UserRepository;
 
 //fala pro spring que essa é uma classe de configuação
 @Configuration
-//especifica para qual perfil esta configuração se aplica
+// no application.properties o campo  spring.profiles.active=test aponta para este endPoint e especifica para qual perfil esta configuração se aplica 
+//no application-test.properties esta setado o banco e o comportamento
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
 
@@ -34,6 +37,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 
 	//Vem da implemetação do CommandLineRunner
 	@Override
@@ -43,8 +49,19 @@ public class TestConfig implements CommandLineRunner {
 		Category cat1 = new Category(null, "Electronics");
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Computers");
-		//salva no banco a lista:
+		//salva TODOS no banco:
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
+		//PRODUTO
+		Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+		Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+		Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+		//salva TODOS no banco:
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		
+		
 		
 		//USER - client
 		//cria os usuarios, serão os seeds, dados iniciais do banco
