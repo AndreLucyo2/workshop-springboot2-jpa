@@ -39,11 +39,10 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
-	
-	//associação com os itens do pedido
+
+	// associação com os itens do pedido
 	@OneToMany(mappedBy = "id.order")
 	private Set<OrderItem> items = new HashSet<>();
-	
 
 	public Order() {
 	}
@@ -72,16 +71,16 @@ public class Order implements Serializable {
 		this.moment = moment;
 	}
 
+	// converte o codigo para o enum
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
 	// recebe um enum e grava o codigo
 	public void setOrderStatus(OrderStatus orderStatus) {
 		if (orderStatus != null) {
 			this.orderStatus = orderStatus.getCode();
 		}
-	}
-
-	// converte o codigo para o enum
-	public OrderStatus getOrderStatus() {
-		return OrderStatus.valueOf(orderStatus);
 	}
 
 	public User getClient() {
@@ -91,7 +90,7 @@ public class Order implements Serializable {
 	public void setClient(User client) {
 		this.client = client;
 	}
-	
+
 	public Set<OrderItem> getItems() {
 		return items;
 	}
