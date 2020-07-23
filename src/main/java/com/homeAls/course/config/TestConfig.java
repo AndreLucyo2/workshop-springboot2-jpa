@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.homeAls.course.entities.Category;
 import com.homeAls.course.entities.Order;
+import com.homeAls.course.entities.OrderItem;
 import com.homeAls.course.entities.Product;
 import com.homeAls.course.entities.User;
 import com.homeAls.course.entities.enums.OrderStatus;
 import com.homeAls.course.repositories.CategoryRepository;
+import com.homeAls.course.repositories.OrderItemRepository;
 import com.homeAls.course.repositories.OrderRepository;
 import com.homeAls.course.repositories.ProductRepository;
 import com.homeAls.course.repositories.UserRepository;
@@ -40,6 +42,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	// Vem da implemetação do CommandLineRunner
 	@Override
@@ -95,5 +100,15 @@ public class TestConfig implements CommandLineRunner {
 
 		// acessa o banco, e ja salva a lista de Order no banco - Pedido
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+		
+		// ###################################################################################################################
+		//ITENS DE PEDIDO
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		// acessa o banco, e ja salva a lista
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
 }
