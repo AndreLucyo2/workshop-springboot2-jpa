@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.homeAls.course.entities.Category;
 import com.homeAls.course.entities.Order;
 import com.homeAls.course.entities.OrderItem;
+import com.homeAls.course.entities.Payment;
 import com.homeAls.course.entities.Product;
 import com.homeAls.course.entities.User;
 import com.homeAls.course.entities.enums.OrderStatus;
@@ -110,5 +111,15 @@ public class TestConfig implements CommandLineRunner {
 		
 		// acessa o banco, e ja salva a lista
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		// ###################################################################################################################
+		//PAGAMENTOS
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		//para salvar um objeto dependente nume relação UM-PARA-EM
+		// DEVE faz a associação em memoria promeiro, e depois manda salvar
+		o1.setPayment(pay1);
+		//Salva novamente o order
+		orderRepository.save(o1);
+		
 	}
 }

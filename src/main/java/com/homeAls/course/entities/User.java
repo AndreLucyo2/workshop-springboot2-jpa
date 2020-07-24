@@ -29,7 +29,7 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 	
-	//Corrige lioop de associação de mão dupla.
+	//Corrige liop de associação de mão dupla.
 	@JsonIgnore
 	//Associação de um para muitos no banco com coluna FK com nome definido
 	@OneToMany(mappedBy = "client")
