@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.homeAls.course.entities.User;
 import com.homeAls.course.repositories.UserRepository;
+import com.homeAls.course.services.exceptions.ResourceNotFoundException;
 
 //Anotação que registra esta classe como um componente no spring, assim o framework pode faer a injeção de dependencia
 @Service
@@ -27,9 +28,9 @@ public class UserService {
 	//faz busca por ID
 	public User findById(Long id) {
 		
-		//faz a chamada e repessa para a camada do repository
+		//faz a chamada e repassa para a camada do repository
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
